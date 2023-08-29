@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+  // variable declarations
+  string str1;
+  bool validPass = true;
+  int upperCounter = 0;
+  int punctCounter = 0;
+  int numCounter = 0;
+
+  // input for password
+  cout << "Enter your password: ";
+  cin >> str1;
+
+  for (int i = 0; i < str1.length(); i++) {
+    if (isupper(str1[i])) // at least one uppercase character required
+      upperCounter++;
+    if (ispunct(str1[i])) // at least one punctuation character required
+      punctCounter++;
+    if (isdigit(str1[i])) // at least one number required
+      numCounter++;
+  }
+  if (str1.length() < 8 /* must be at least 8 characters long */ || upperCounter < 1 || punctCounter < 1 || numCounter < 1) 
+    validPass = false;
+
+  if (validPass)
+    cout << "Your password is valid.";
+  else
+    cout << "Your password is invalid.";
+  
+  return 0;
+}
