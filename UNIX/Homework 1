@@ -1,0 +1,81 @@
+#include <iostream>
+#include <chrono>
+#include <limits>
+#include <locale>
+#include <fstream>
+#include "LineInfo.h"
+
+using namespace std;
+using namespace chrono;
+
+
+/*
+Program Name: Where's Wild Bill
+Date: 2023-03-05
+Author: Nathaniel Tan
+Module Purpose
+This program computes the number of different such possible locations at which 
+Wild Bill might be standing.
+*/
+
+int main() {
+  for (int i = 1; i < 11; i++) {
+  
+    // start time
+    auto timeStart = steady_clock::now();
+  
+    ifstream file;
+    if (i != 10) {
+      file.open("0" + to_string(i) + "bisonsearchin.txt");
+    }
+    else {
+      file.open(to_string(i) + "bisonsearchin.txt");
+    }
+  
+    // error if file is not open
+    try {
+      if (!file) {
+        throw domain_error(LineInfo("File not opened ", __FILE__, __LINE__));
+      }
+    }// try
+    catch (exception& e) {
+      cout << e.what() << endl;
+      cout << endl << "Press the enter key once or twice to leave..." << endl;
+      cin.ignore(); cin.get();
+      exit(EXIT_FAILURE);
+    }// catch
+  
+    string input;
+    file >> input;
+    file.close();
+
+    int hind=0, counter=0;
+    for (int j = 0; j < input.length(); j++) {
+      if (input.substr(j, 1) == input.substr(j+1, 1)) {
+        if (input.substr(j,1) == "(") {
+          hind++; 
+        }
+        else {
+          counter += hind; // each preceding hind leg pair is a potential match
+        }
+      }
+    }
+  
+    // stop time
+    auto timeElapsed = duration_cast<nanoseconds> (steady_clock::now() - timeStart);
+
+    ofstream oFile;
+    if (i != 10) {
+      oFile.open("0" + to_string(i) + "bisonfoundin.txt");
+    } 
+    else {
+      oFile.open("0" + to_string(i) + "bisonfoundin.txt");
+    }
+    oFile << "Time Elapsed (nano) : " << timeElapsed.count() << endl;
+    oFile << "Found Pattern Count : " << counter << endl;
+    oFile << "Searched Pattern : " << input << endl;
+    oFile.close();
+  }
+  
+  return 0;
+}// main()
