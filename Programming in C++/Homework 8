@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// prints all elements of the vector after adding the offset to each element 
+void printOffsetValues(int offset, vector<int> collection) {
+  for (int i = 0; i < collection.size(); i++) 
+    cout << collection[i] + offset << endl;  
+}
+
+// prints the element at the specified location in the vector
+void displayNthElement(int location, vector<int> collection) {
+  cout << collection[location] << endl;
+}
+
+// prints the value of the maximum element of the vector times the specified multiplication factor
+void printNTimesMax(int multFactor, vector<int> collection) {
+  long long max = collection[0];
+  for (int i = 1; i < collection.size(); i++) {
+    if (collection[i] > max)
+      max = collection[i];
+  }
+  cout << max * multFactor << endl;
+}
+
+int main() {
+  // variable declarations
+  int index;
+  int num;
+  vector<int> vec;
+  void(*ptr[3])(int, vector<int>) = {printOffsetValues, displayNthElement, printNTimesMax};
+
+  // prompts user for input for the index
+  cout << "Enter an integer from 0-2: ";
+  cin >> index;
+
+  // prompts user for input for first argument
+  cout << "Enter another integer (doesn't have to be from 0-2): ";
+  cin >> num;
+
+  // initializes vector for the second argument
+  for (int i = 0; i < 10; i++) 
+    vec.push_back(rand());
+
+  // calls function
+  (ptr[index])(num, vec);
+  
+  return 0;
+}
