@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+
+  // variable declarations
+  int index;
+  string str;
+  char letter;
+  vector <string> words;
+
+  /* NOTE: THE COUT PROMPTS ARE COMMENTED OUT FOR THE AUTO-GRADER */
+  
+  // gets input for variables
+  //cout << "Enter an integer: ";
+  cin >> index; 
+  //cout << "Enter a list of words: ";
+  for (int i = 0; i < index; i++) {
+    cin >> str;
+    words.push_back(str);
+  }
+  //cout << "Enter a character: ";
+  cin >> letter;
+
+  // traverses vector
+  for (int i = 0; i < words.size(); i++) {
+    // traverses each char of an index
+    for (int j = 0; j < words[i].length(); j++) {
+      // outputs word followed by comma if it contains the letter
+      if (words[i][j] == letter) {
+        cout << words[i] << ",";
+        break;
+      }
+    }
+  }
+  cout << endl;
+
+  return 0;
+}
